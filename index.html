@@ -1,74 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>PandoX Mini App</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #000;
-    color: #fff;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PandoX 🐼 Mini-App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ffe600, #ff3b3b);
+      color: #111;
+      text-align: center;
+    }
 
-header {
-    padding: 20px;
-}
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
 
-.logo {
-    width: 150px;
-    margin: 20px auto;
-}
+    #logo {
+      width: 200px;
+      animation: bounce 2s infinite;
+      margin-bottom: 20px;
+    }
 
-h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
 
-p {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
+    h1 { font-size: 2rem; margin-bottom: 15px; }
+    p { font-size: 1rem; margin-bottom: 30px; line-height: 1.5; }
 
-button {
-    background: #00ff88;
-    border: none;
-    padding: 15px 25px;
-    margin: 10px;
-    font-size: 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
+    .button {
+      display: inline-block;
+      background: #ff3b3b;
+      color: white;
+      padding: 15px 25px;
+      margin: 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
 
-button:hover {
-    background: #00cc66;
-}
-</style>
+    .button:hover {
+      background: #ffe600;
+      color: #111;
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    /* Earn / referral simulator */
+    .earn-box {
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .earn-box button {
+      background: #00b894;
+    }
+
+    .earn-box button:hover {
+      background: #55efc4;
+      color: #111;
+    }
+
+    .earn-box p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+
+    @media (max-width: 500px) {
+      #logo { width: 150px; }
+      .button { padding: 12px 20px; font-size: 0.9rem; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 0.9rem; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <img id="logo" src="ruta-a-tu-logo.png" alt="PandoX Panda Logo">
+    <h1>PandoX 🐼</h1>
+    <p>¡La primera moneda meme creada públicamente!<br>
+    Únete al experimento, reclama recompensas y forma parte de una comunidad que convierte los memes en diversión y oportunidades reales. 🚀🪙</p>
 
-<header>
-    <!-- Logo de la moneda PandoX -->
-    <img class="logo" src="https://i.imgur.com/AygwFab.png" alt="PandoX Logo"/>
-    <h1>🐼 PandoX</h1>
-    <p>The first meme project built in public</p>
-</header>
+    <!-- Botones principales -->
+    <a href="https://t.me/PandoXOfficialCrypto" class="button" target="_blank">Join Telegram</a>
+    <a href="https://x.com/PandoXOfficial" class="button" target="_blank">Follow on X</a>
+    <a href="#" class="button">Claim Reward</a>
 
-<!-- Botones interactivos -->
-<button onclick="window.location.href='https://t.me/PandoXOfficialCrypto'">
-Join Telegram
-</button>
+    <!-- Simulador de Earn / Referidos -->
+    <div class="earn-box">
+      <p><strong>Simula tu Earn / Referidos</strong></p>
+      <p>Tu balance: <span id="balance">0</span> PandoX 🐼</p>
+      <button onclick="earn()">Ganar PandoX</button>
+      <p>Referidos: <span id="refs">0</span></p>
+      <button onclick="addRef()">Nuevo referido</button>
+    </div>
+  </div>
 
-<button onclick="window.location.href='https://x.com/PandoXOfficial'">
-Follow on X
-</button>
+  <script>
+    let balance = 0;
+    let refs = 0;
 
-<button onclick="alert('Reward claimed! 🪙')">
-Claim Reward
-</button>
+    function earn() {
+      const earned = Math.floor(Math.random() * 5) + 1; // gana 1-5 PandoX
+      balance += earned;
+      document.getElementById('balance').innerText = balance;
+      alert(`¡Ganaste ${earned} PandoX!`);
+    }
 
+    function addRef() {
+      refs += 1;
+      balance += 2; // bonus por referido
+      document.getElementById('refs').innerText = refs;
+      document.getElementById('balance').innerText = balance;
+      alert(`¡Nuevo referido agregado! +2 PandoX`);
+    }
+  </script>
 </body>
 </html>
