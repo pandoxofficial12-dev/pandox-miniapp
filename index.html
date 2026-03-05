@@ -1,166 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PandoX 🐼 Mini-App</title>
-  <style>
-    /* Fondo premium tipo logo */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      color: #fff;
-      background: linear-gradient(135deg, #0f4d3d, #1f1f1f); /* Verde oscuro -> negro */
-      background-size: cover;
-      background-attachment: fixed;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PandoX 🐼 Mini-App Deluxe</title>
+<style>
+  /* --- Fuentes y colores --- */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #0b1e4f, #1a2a6c, #000000);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    text-align: center;
+    overflow-x: hidden;
+  }
 
-    /* Contenedor principal */
-    .container {
-      max-width: 650px;
-      margin: 40px auto;
-      padding: 30px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 25px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
 
-    /* Logo animado */
-    #logo {
-      width: 200px;
-      animation: float 3s ease-in-out infinite;
-      margin-bottom: 25px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    }
+  /* --- Logo flotante --- */
+  #logo {
+    width: 180px;
+    margin-top: 40px;
+    animation: floatLogo 4s ease-in-out infinite;
+    transition: transform 0.3s;
+  }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
 
-    /* Títulos y textos */
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
-    }
+  #logo:hover {
+    transform: scale(1.05) rotate(5deg);
+  }
 
-    p {
-      font-size: 1rem;
-      margin-bottom: 30px;
-      line-height: 1.5;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-    }
+  h1, h2 {
+    margin: 20px 0;
+    color: #1E90FF;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+  }
 
-    /* Botones principales */
-    .button {
-      display: inline-block;
-      background: #00d084;
-      color: #111;
-      padding: 15px 30px;
-      margin: 12px;
-      border-radius: 15px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
+  /* --- Botones --- */
+  button {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
 
-    .button:hover {
-      background: #00ff9f;
-      transform: scale(1.1);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    }
+  button:hover {
+    background-color: #FFFFFF;
+    color: #1E90FF;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+  }
 
-    /* Simulador Earn / Referidos */
-    .earn-box {
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 25px;
-      margin: 25px 0;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    }
+  /* --- Barra de progreso --- */
+  .progress-container {
+    width: 80%;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    margin: 20px auto;
+    padding: 5px;
+  }
 
-    .earn-box p {
-      font-size: 1.1rem;
-      margin: 12px 0;
-    }
+  .progress-bar {
+    width: 0%;
+    height: 20px;
+    background-color: #1E90FF;
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+  }
 
-    .earn-box button {
-      background: #ffd700;
-      color: #111;
-      padding: 12px 25px;
-      border-radius: 12px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
+  /* --- MiniHub --- */
+  #minihub {
+    margin: 30px 0;
+    padding: 20px;
+    border: 2px solid rgba(30,144,255,0.6);
+    border-radius: 15px;
+    background: rgba(0,0,0,0.3);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    .earn-box button:hover {
-      background: #ffec7f;
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    }
-
-    /* Responsive */
-    @media (max-width: 500px) {
-      #logo { width: 150px; }
-      .button { padding: 12px 22px; font-size: 0.9rem; }
-      h1 { font-size: 1.7rem; }
-      p { font-size: 0.9rem; }
-    }
-  </style>
+  /* --- Culebrita/Dino Game --- */
+  #gameCanvas {
+    background-color: rgba(255,255,255,0.1);
+    border: 2px solid #1E90FF;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <!-- Logo del Panda -->
-    <img id="logo" src="https://i.imgur.com/AygwFab.png" alt="PandoX Panda Logo">
 
-    <!-- Título -->
-    <h1>PandoX 🐼</h1>
+<img id="logo" src="https://i.imgur.com/AygwFab.png" alt="PandoX Logo">
+<h1>PandoX 🐼 Mini-App Deluxe</h1>
 
-    <!-- Texto de presentación -->
-    <p>¡La primera moneda meme creada públicamente!<br>
-    Únete al experimento, reclama recompensas y forma parte de una comunidad que convierte los memes en diversión y oportunidades reales. 🚀🪙</p>
+<div class="progress-container">
+  <p>Balance PandoX: <span id="balance">0</span></p>
+  <div class="progress-bar" id="balanceBar"></div>
+</div>
 
-    <!-- Botones principales -->
-    <a href="https://t.me/PandoXOfficialCrypto" class="button" target="_blank">Join Telegram</a>
-    <a href="https://x.com/PandoXOfficial" class="button" target="_blank">Follow on X</a>
-    <a href="#" class="button">Claim Reward</a>
+<div id="minihub">
+  <h2>🎮 MiniHub PandoX</h2>
+  <button onclick="clickerGame()">💰 Clicker Game</button>
+  <button onclick="guessNumberGame()">🔢 Adivina el Número</button>
+  <button onclick="startSnakeGame()">🐍 Culebrita</button>
+  <div id="gameContainer"></div>
+</div>
 
-    <!-- Simulador Earn / Referidos -->
-    <div class="earn-box">
-      <p><strong>Simula tu Earn / Referidos</strong></p>
-      <p>Tu balance: <span id="balance">0</span> PandoX 🐼</p>
-      <button onclick="earn()">Ganar PandoX</button>
-      <p>Referidos: <span id="refs">0</span></p>
-      <button onclick="addRef()">Nuevo referido</button>
-    </div>
-  </div>
+<script>
+  // --- Balance simulado ---
+  let balance = 0;
+  let refs = 0;
 
-  <script>
-    let balance = 0;
-    let refs = 0;
+  function updateBalanceUI() {
+    document.getElementById('balance').innerText = balance;
+    let percent = Math.min(balance * 2, 100); // simula progreso
+    document.getElementById('balanceBar').style.width = percent + "%";
+  }
 
-    function earn() {
-      const earned = Math.floor(Math.random() * 5) + 1; // gana 1-5 PandoX
-      balance += earned;
-      document.getElementById('balance').innerText = balance;
-      alert(`¡Ganaste ${earned} PandoX!`);
+  // --- Clicker Game ---
+  function clickerGame() {
+    let clicks = 0;
+    const container = document.getElementById('gameContainer');
+    container.innerHTML = `
+      <p>Clics: <span id="clicks">0</span></p>
+      <button id="clickBtn">Haz clic aquí</button>
+    `;
+    document.getElementById('clickBtn').onclick = () => {
+      clicks++;
+      balance += 1;
+      updateBalanceUI();
+      document.getElementById('clicks').innerText = clicks;
+    };
+  }
+
+  // --- Adivina el número ---
+  function guessNumberGame() {
+    const container = document.getElementById('gameContainer');
+    const randomNum = Math.floor(Math.random() * 10) + 1;
+    container.innerHTML = `
+      <p>Adivina un número del 1 al 10</p>
+      <input type="number" id="guessInput" min="1" max="10">
+      <button id="guessBtn">Adivinar</button>
+      <p id="guessResult"></p>
+    `;
+    document.getElementById('guessBtn').onclick = () => {
+      const guess = parseInt(document.getElementById('guessInput').value);
+      const result = document.getElementById('guessResult');
+      if (guess === randomNum) {
+        result.innerText = '🎉 ¡Correcto! Ganaste 5 PandoX';
+        balance += 5;
+      } else {
+        result.innerText = `❌ Incorrecto. El número era ${randomNum}`;
+      }
+      updateBalanceUI();
+    };
+  }
+
+  // --- Culebrita simple ---
+  function startSnakeGame() {
+    const container = document.getElementById('gameContainer');
+    container.innerHTML = '<canvas id="gameCanvas" width="300" height="300"></canvas>';
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const grid = 15;
+    let count = 0;
+    let snake = [{x: 10, y:10}];
+    let apple = {x: 5, y:5};
+    let dx = 0;
+    let dy = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === "ArrowUp" && dy === 0){ dx=0; dy=-1; }
+      if(e.key === "ArrowDown" && dy === 0){ dx=0; dy=1; }
+      if(e.key === "ArrowLeft" && dx === 0){ dx=-1; dy=0; }
+      if(e.key === "ArrowRight" && dx === 0){ dx=1; dy=0; }
+    });
+
+    function loop() {
+      requestAnimationFrame(loop);
+      if(++count < 4) return;
+      count = 0;
+      ctx.fillStyle = "#00000033";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // Mover serpiente
+      let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+      snake.unshift(head);
+
+      // Comer manzana
+      if(head.x === apple.x && head.y === apple.y) {
+        balance += 2;
+        updateBalanceUI();
+        apple.x = Math.floor(Math.random()*20);
+        apple.y = Math.floor(Math.random()*20);
+      } else {
+        snake.pop();
+      }
+
+      // Dibujo
+      ctx.fillStyle = "#1E90FF";
+      snake.forEach(s => ctx.fillRect(s.x*grid, s.y*grid, grid-1, grid-1));
+      ctx.fillStyle = "#FF0000";
+      ctx.fillRect(apple.x*grid, apple.y*grid, grid-1, grid-1);
     }
+    loop();
+  }
+</script>
 
-    function addRef() {
-      refs += 1;
-      balance += 2; // bonus por referido
-      document.getElementById('refs').innerText = refs;
-      document.getElementById('balance').innerText = balance;
-      alert(`¡Nuevo referido agregado! +2 PandoX`);
-    }
-  </script>
 </body>
 </html>
