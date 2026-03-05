@@ -3,225 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PandoX 🐼 Mini-App Deluxe</title>
+<title>PandoX 🐼 Mini-App Ultra Deluxe 2.0</title>
+
 <style>
-  /* --- Fuentes y colores --- */
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #FFFFFF;
-    background: linear-gradient(135deg, #0b1e4f, #1a2a6c, #000000);
-    background-size: 400% 400%;
-    animation: gradientBG 20s ease infinite;
-    text-align: center;
-    overflow-x: hidden;
-  }
-
-  @keyframes gradientBG {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
-  }
-
-  /* --- Logo flotante --- */
-  #logo {
-    width: 180px;
-    margin-top: 40px;
-    animation: floatLogo 4s ease-in-out infinite;
-    transition: transform 0.3s;
-  }
-
-  @keyframes floatLogo {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
-  #logo:hover {
-    transform: scale(1.05) rotate(5deg);
-  }
-
-  h1, h2 {
-    margin: 20px 0;
-    color: #1E90FF;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-  }
-
-  /* --- Botones --- */
-  button {
-    background-color: #1E90FF;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 12px;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  }
-
-  button:hover {
-    background-color: #FFFFFF;
-    color: #1E90FF;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    transform: translateY(-2px);
-  }
-
-  /* --- Barra de progreso --- */
-  .progress-container {
-    width: 80%;
-    background: rgba(255,255,255,0.1);
-    border-radius: 12px;
-    margin: 20px auto;
-    padding: 5px;
-  }
-
-  .progress-bar {
-    width: 0%;
-    height: 20px;
-    background-color: #1E90FF;
-    border-radius: 10px;
-    transition: width 1s ease-in-out;
-  }
-
-  /* --- MiniHub --- */
-  #minihub {
-    margin: 30px 0;
-    padding: 20px;
-    border: 2px solid rgba(30,144,255,0.6);
-    border-radius: 15px;
-    background: rgba(0,0,0,0.3);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* --- Culebrita/Dino Game --- */
-  #gameCanvas {
-    background-color: rgba(255,255,255,0.1);
-    border: 2px solid #1E90FF;
-    border-radius: 12px;
-    margin-top: 20px;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+body, html {margin:0;padding:0;font-family:'Roboto',sans-serif;overflow-x:hidden;color:#FFFFFF;height:100%;background:radial-gradient(circle at top left,#0a1a3d,#000000);perspective:1000px;}
+#particles,#shootingStars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
+.particle{position:absolute;border-radius:50%;background:rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(30,144,255,0.8);animation:float 20s linear infinite;}
+@keyframes float{0%{transform:translateY(100vh) translateX(0) scale(0.5);opacity:0.8;}100%{transform:translateY(-10vh) translateX(200px) scale(1);opacity:0;}}
+.shooting{position:absolute;width:2px;height:2px;background:white;opacity:0.8;transform:rotate(45deg);}
+#logo{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:180px;height:180px;animation:floatLogo 4s ease-in-out infinite alternate, glowLogo 2s ease-in-out infinite alternate;border-radius:50%;background:url('https://i.imgur.com/AygwFab.png') no-repeat center/contain;box-shadow:0 0 30px 10px rgba(30,144,255,0.7);}
+@keyframes floatLogo{0%{transform:translate(-50%,0);}50%{transform:translate(-50%,20px);}100%{transform:translate(-50%,0);}}
+@keyframes glowLogo{0%{box-shadow:0 0 20px 5px rgba(30,144,255,0.5);}50%{box-shadow:0 0 50px 15px rgba(30,144,255,1);}100%{box-shadow:0 0 20px 5px rgba(30,144,255,0.5);}}
+.container{max-width:1200px;margin:0 auto;padding:220px 20px 50px 20px;text-align:center;}
+h1,h2{color:#1E90FF;text-shadow:0 0 15px rgba(30,144,255,0.9);}
+h1{font-size:3em;margin-bottom:20px;}h2{font-size:2em;margin-top:50px;margin-bottom:20px;}
+button{background:linear-gradient(45deg,#1E90FF,#00BFFF);border:none;padding:14px 30px;margin:10px;font-size:1.1em;color:white;cursor:pointer;border-radius:30px;transition:0.4s;box-shadow:0 0 20px rgba(30,144,255,0.5);}
+button:hover{transform:scale(1.15);box-shadow:0 0 40px rgba(30,144,255,0.9);}
+#minigames{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;}
+.game-card{background:rgba(255,255,255,0.05);border:1px solid rgba(30,144,255,0.3);border-radius:20px;width:270px;padding:25px;text-align:center;transition:0.4s;transform-style: preserve-3d;}
+.game-card:hover{transform:rotateY(10deg) translateY(-10px);box-shadow:0 0 30px rgba(30,144,255,0.7);}
+input[type="text"], input[type="number"]{padding:12px;border-radius:12px;border:none;margin-top:10px;width:80%;}
+section{margin:50px 0;padding:25px;background:rgba(255,255,255,0.05);border-radius:20px;border:1px solid rgba(30,144,255,0.3);text-align:left;max-width:900px;margin-left:auto;margin-right:auto;}
+a{color:#1E90FF;text-decoration:none;font-weight:bold;}a:hover{text-decoration:underline;}
+footer{margin-top:50px;padding:20px;font-size:0.9em;color:rgba(255,255,255,0.7);}
+canvas{background:transparent;display:block;margin:0 auto;}
 </style>
 </head>
 <body>
 
-<img id="logo" src="https://i.imgur.com/AygwFab.png" alt="PandoX Logo">
-<h1>PandoX 🐼 Mini-App Deluxe</h1>
+<div id="particles"></div>
+<div id="shootingStars"></div>
+<div id="logo"></div>
 
-<div class="progress-container">
-  <p>Balance PandoX: <span id="balance">0</span></p>
-  <div class="progress-bar" id="balanceBar"></div>
+<div class="container">
+<h1>PandoX 🐼 Mini-App Ultra Deluxe 2.0</h1>
+<p>¡La primera moneda meme creada públicamente! Únete al experimento, obtén recompensas y disfruta de nuestra comunidad.</p>
+
+<div>
+<button onclick="document.getElementById('minigames').scrollIntoView({behavior:'smooth'})">🎮 MiniHub</button>
+<button onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">📄 Acerca del proyecto</button>
+<button onclick="document.getElementById('license').scrollIntoView({behavior:'smooth'})">📝 Licencia</button>
+<button onclick="window.open('https://www.pufwallet.xyz/token/0xF968341A687D70BcF84121111CfBB5eF7148AC28','_blank')">💰 Ver moneda</button>
 </div>
 
-<div id="minihub">
-  <h2>🎮 MiniHub PandoX</h2>
-  <button onclick="clickerGame()">💰 Clicker Game</button>
-  <button onclick="guessNumberGame()">🔢 Adivina el Número</button>
-  <button onclick="startSnakeGame()">🐍 Culebrita</button>
-  <div id="gameContainer"></div>
+<section id="minigames">
+<h2>MiniHub</h2>
+
+<div class="game-card">
+<h3>🎯 Clicker</h3>
+<button onclick="clickerScore()">Haz click!</button>
+<p>Puntos: <span id="clickerCount">0</span></p>
+<audio id="clickSound"><source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav"></audio>
 </div>
+
+<div class="game-card">
+<h3>🐍 Snake</h3>
+<canvas id="snakeGame" width="260" height="260"></canvas>
+<p>Puntaje máximo: <span id="snakeHighscore">0</span></p>
+<audio id="eatSound"><source src="https://www.soundjay.com/button/button-3.wav" type="audio/wav"></audio>
+</div>
+
+<div class="game-card">
+<h3>🦖 Dino Run</h3>
+<canvas id="dinoGame" width="260" height="260"></canvas>
+<p>Puntaje máximo: <span id="dinoHighscore">0</span></p>
+<audio id="jumpSound"><source src="https://www.soundjay.com/button/button-4.wav" type="audio/wav"></audio>
+</div>
+</section>
+
+<section id="info">
+<h2>📄 Acerca del proyecto</h2>
+<p>PandoX 🐼 – La primera moneda meme construida públicamente. Mini-app experimental para interactuar con la moneda y comunidad.</p>
+<ul>
+<li>Mini-juegos para entretenimiento con récords guardados.</li>
+<li>Progreso de la moneda simulado.</li>
+<li>Botones directos para visitar la moneda en P-U-F-F Wallet.</li>
+<li>Diseño premium: azul oscuro, blanco y negro.</li>
+<li>Animaciones y partículas flotantes interactivas.</li>
+<li>Nota: muchas funciones son simuladas mientras se desarrolla la versión completa.</li>
+</ul>
+</section>
+
+<section id="license">
+<h2>📝 Licencia</h2>
+<pre>
+MIT License
+Copyright (c) 2026 PandoX
+Permission is hereby granted, free of charge, to any person obtaining a copy...
+</pre>
+</section>
+
+</div>
+<footer>
+&copy; 2026 PandoX 🐼 – Mini-App Ultra Deluxe 2.0
+</footer>
 
 <script>
-  // --- Balance simulado ---
-  let balance = 0;
-  let refs = 0;
+// --- Partículas y estrellas ---
+const particlesContainer=document.getElementById('particles');
+let particlesArray=[];
+const particleCount=120;
+for(let i=0;i<particleCount;i++){
+  let p=document.createElement('div');p.classList.add('particle');
+  p.style.width=`${Math.random()*4+1}px`;p.style.height=p.style.width;
+  p.style.left=`${Math.random()*100}vw`;p.style.top=`${Math.random()*100}vh`;
+  p.style.animationDuration=`${Math.random()*15+10}s`;
+  particlesContainer.appendChild(p);particlesArray.push(p);
+}
+document.addEventListener('mousemove',e=>{particlesArray.forEach(p=>{const rect=p.getBoundingClientRect();const dx=e.clientX-rect.left;const dy=e.clientY-rect.top;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<50){p.style.transform='scale(2)';p.style.opacity=1;}else{p.style.transform='scale(1)';p.style.opacity=0.8;}});});
+const shootingContainer=document.getElementById('shootingStars');
+function createShootingStar(){let star=document.createElement('div');star.classList.add('shooting');star.style.left=Math.random()*100+'vw';star.style.top=Math.random()*100+'vh';shootingContainer.appendChild(star);let x=Math.random()*400+100;let y=Math.random()*200+50;star.animate([{transform:'translate(0,0)'},{transform:`translate(${x}px,${y}px)`}],{duration:1000,iterations:1});setTimeout(()=>{shootingContainer.removeChild(star);},1000);}
+setInterval(createShootingStar,1500);
 
-  function updateBalanceUI() {
-    document.getElementById('balance').innerText = balance;
-    let percent = Math.min(balance * 2, 100); // simula progreso
-    document.getElementById('balanceBar').style.width = percent + "%";
-  }
+// --- Clicker ---
+let clickerCount=0;
+function clickerScore(){clickerCount++;document.getElementById('clickerCount').innerText=clickerCount;document.getElementById('clickSound').play();}
 
-  // --- Clicker Game ---
-  function clickerGame() {
-    let clicks = 0;
-    const container = document.getElementById('gameContainer');
-    container.innerHTML = `
-      <p>Clics: <span id="clicks">0</span></p>
-      <button id="clickBtn">Haz clic aquí</button>
-    `;
-    document.getElementById('clickBtn').onclick = () => {
-      clicks++;
-      balance += 1;
-      updateBalanceUI();
-      document.getElementById('clicks').innerText = clicks;
-    };
-  }
+// --- Snake ---
+const snakeCanvas=document.getElementById('snakeGame');const snakeCtx=snakeCanvas.getContext('2d');
+let snake=[],snakeDir='RIGHT',food={},snakeScore=0;
+const snakeSize=10;let snakeHighscore=parseInt(localStorage.getItem('snakeHighscore'))||0;document.getElementById('snakeHighscore').innerText=snakeHighscore;
+function initSnake(){snake=[{x:120,y:120}];snakeDir='RIGHT';snakeScore=0;placeFood();if(typeof snakeInterval!=='undefined')clearInterval(snakeInterval);snakeInterval=setInterval(gameSnake,100);}
+function placeFood(){food={x:Math.floor(Math.random()*26)*10,y:Math.floor(Math.random()*26)*10};}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowUp' && snakeDir!=='DOWN')snakeDir='UP';if(e.key==='ArrowDown' && snakeDir!=='UP')snakeDir='DOWN';if(e.key==='ArrowLeft' && snakeDir!=='RIGHT')snakeDir='LEFT';if(e.key==='ArrowRight' && snakeDir!=='LEFT')snakeDir='RIGHT';});
+function gameSnake(){snakeCtx.clearRect(0,0,260,260);snake.forEach(s=>{snakeCtx.fillStyle='lime';snakeCtx.fillRect(s.x,s.y,snakeSize,snakeSize);});snakeCtx.fillStyle='red';snakeCtx.fillRect(food.x,food.y,snakeSize,snakeSize);let head={x:snake[0].x,y:snake[0].y};if(snakeDir==='UP')head.y-=snakeSize;if(snakeDir==='DOWN')head.y+=snakeSize;if(snakeDir==='LEFT')head.x-=snakeSize;if(snakeDir==='RIGHT')head.x+=snakeSize;snake.unshift(head);if(head.x===food.x && head.y===food.y){snakeScore++;document.getElementById('eatSound').play();placeFood();}else{snake.pop();}
+for(let i=1;i<snake.length;i++){if(snake[i].x===head.x && snake[i].y===head.y||head.x<0||head.y<0||head.x>=260||head.y>=260){alert('Snake Game Over! Puntos: '+snakeScore);if(snakeScore>snakeHighscore){snakeHighscore=snakeScore;localStorage.setItem('snakeHighscore',snakeHighscore);document.getElementById('snakeHighscore').innerText=snakeHighscore;}initSnake();}}}
+initSnake();
 
-  // --- Adivina el número ---
-  function guessNumberGame() {
-    const container = document.getElementById('gameContainer');
-    const randomNum = Math.floor(Math.random() * 10) + 1;
-    container.innerHTML = `
-      <p>Adivina un número del 1 al 10</p>
-      <input type="number" id="guessInput" min="1" max="10">
-      <button id="guessBtn">Adivinar</button>
-      <p id="guessResult"></p>
-    `;
-    document.getElementById('guessBtn').onclick = () => {
-      const guess = parseInt(document.getElementById('guessInput').value);
-      const result = document.getElementById('guessResult');
-      if (guess === randomNum) {
-        result.innerText = '🎉 ¡Correcto! Ganaste 5 PandoX';
-        balance += 5;
-      } else {
-        result.innerText = `❌ Incorrecto. El número era ${randomNum}`;
-      }
-      updateBalanceUI();
-    };
-  }
-
-  // --- Culebrita simple ---
-  function startSnakeGame() {
-    const container = document.getElementById('gameContainer');
-    container.innerHTML = '<canvas id="gameCanvas" width="300" height="300"></canvas>';
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    const grid = 15;
-    let count = 0;
-    let snake = [{x: 10, y:10}];
-    let apple = {x: 5, y:5};
-    let dx = 0;
-    let dy = 0;
-
-    document.addEventListener('keydown', (e) => {
-      if(e.key === "ArrowUp" && dy === 0){ dx=0; dy=-1; }
-      if(e.key === "ArrowDown" && dy === 0){ dx=0; dy=1; }
-      if(e.key === "ArrowLeft" && dx === 0){ dx=-1; dy=0; }
-      if(e.key === "ArrowRight" && dx === 0){ dx=1; dy=0; }
-    });
-
-    function loop() {
-      requestAnimationFrame(loop);
-      if(++count < 4) return;
-      count = 0;
-      ctx.fillStyle = "#00000033";
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-
-      // Mover serpiente
-      let head = {x: snake[0].x + dx, y: snake[0].y + dy};
-      snake.unshift(head);
-
-      // Comer manzana
-      if(head.x === apple.x && head.y === apple.y) {
-        balance += 2;
-        updateBalanceUI();
-        apple.x = Math.floor(Math.random()*20);
-        apple.y = Math.floor(Math.random()*20);
-      } else {
-        snake.pop();
-      }
-
-      // Dibujo
-      ctx.fillStyle = "#1E90FF";
-      snake.forEach(s => ctx.fillRect(s.x*grid, s.y*grid, grid-1, grid-1));
-      ctx.fillStyle = "#FF0000";
-      ctx.fillRect(apple.x*grid, apple.y*grid, grid-1, grid-1);
-    }
-    loop();
-  }
+// --- Dino Run ---
+const dinoCanvas=document.getElementById('dinoGame');const dinoCtx=dinoCanvas.getContext('2d');
+let dinoX=20,dinoY=200,dinoVY=0,dinoScore=0,gravity=1,jumping=false;
+let obstacles=[],dinoHighscore=parseInt(localStorage.getItem('dinoHighscore'))||0;
+document.getElementById('dinoHighscore').innerText=dinoHighscore;
+function spawnObstacle(){obstacles.push({x:260,y:210,width:20,height:40});}
+function gameDino(){dinoCtx.clearRect(0,0,260,260);dinoVY+=gravity;dinoY+=dinoVY;if(dinoY>200){dinoY=200;dinoVY=0;jumping=false;}dinoCtx.fillStyle='lime';dinoCtx.fillRect(dinoX,dinoY,20,20);obstacles.forEach(o=>{o.x-=5;dinoCtx.fillStyle='red';dinoCtx.fillRect(o.x,o.y,o.width,o.height);if(dinoX+20>o.x&&dinoX<o.x+o.width&&dinoY+20>o.y){alert('Dino Game Over! Puntos: '+dinoScore);if(dinoScore>dinoHighscore){dinoHighscore=dinoScore;localStorage.setItem('dinoHighscore',dinoHighscore);document.getElementById('dinoHighscore').innerText=dinoHighscore;}dinoScore=0;obstacles=[];}});dinoScore++;requestAnimationFrame(gameDino);}
+document.addEventListener('keydown',e=>{if(e.code==='Space' && !jumping){dinoVY=-12;jumping=true;document.getElementById('jumpSound').play();}});
+setInterval(spawnObstacle,2000);requestAnimationFrame(gameDino);
 </script>
 
 </body>
