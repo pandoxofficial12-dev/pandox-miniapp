@@ -3,191 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PandoX 🐼 - MiniApp Deluxe 4.0</title>
-
-<!-- Google Fonts -->
+<title>PandoX 🐼 – Mini App 1.0 Deluxe</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
 <style>
-/* General Reset */
-* {margin:0; padding:0; box-sizing:border-box;}
-body, html {width:100%; height:100%; overflow:hidden; font-family: 'Orbitron', sans-serif; color:#fff; background:#000020;}
-
-/* Background & Stars */
-#bgCanvas {position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;}
-
-/* Logo */
-#logoContainer {position:relative; width:200px; margin:40px auto; text-align:center;}
-#logo {width:150px; animation: floatLogo 6s ease-in-out infinite; filter: drop-shadow(0 0 15px #00f0ff);}
-@keyframes floatLogo {0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
-
-/* Glow effect on hover */
-#logo:hover {filter: drop-shadow(0 0 25px #00f0ff) drop-shadow(0 0 10px #00f0ff); transform: scale(1.05); transition:0.3s;}
-
-/* Header */
-h1 {text-align:center; font-size:2rem; margin-top:20px; color:#00f0ff; text-shadow:0 0 10px #00f0ff;}
-
-/* MiniHub Cards */
-#miniHub {display:flex; flex-wrap:wrap; justify-content:center; margin-top:40px; gap:20px;}
-.card {background:linear-gradient(135deg,#001f40,#004080); padding:20px; border-radius:15px; width:200px; text-align:center; box-shadow:0 0 20px rgba(0,255,255,0.5); transition:0.3s; cursor:pointer; position:relative; overflow:hidden;}
-.card:hover {box-shadow:0 0 40px rgba(0,255,255,0.8); transform:translateY(-5px);}
-
-/* Card Titles */
-.card h2 {margin-bottom:15px; font-size:1.2rem; color:#00f0ff;}
-
-/* Buttons */
-button {padding:10px 20px; border:none; border-radius:8px; background:#00f0ff; color:#000; font-weight:bold; cursor:pointer; transition:0.3s;}
-button:hover {background:#00ffff; transform:scale(1.05);}
-
-/* Games Canvas */
-canvas.gameCanvas {background:#000020; border:2px solid #00f0ff; border-radius:10px; display:block; margin:10px auto;}
-.score {color:#00f0ff; font-weight:bold; text-align:center; margin-top:5px;}
-
-/* Particle style for logo and background interaction */
-.particle {position:absolute; width:4px; height:4px; background:#00f0ff; border-radius:50%; opacity:0.8; animation: drift 6s infinite;}
-@keyframes drift {0%{transform:translate(0,0);}50%{transform:translate(20px,-20px);}100%{transform:translate(0,0);}}
+*{margin:0;padding:0;box-sizing:border-box;}
+html, body{width:100%;height:100%;overflow:auto;font-family:'Orbitron',sans-serif;background:#000020;color:#fff;scroll-behavior:smooth;}
+#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+#logoContainer{position:relative;width:250px;margin:40px auto 20px auto;text-align:center;}
+#logo{width:150px;animation:floatLogo 6s ease-in-out infinite;filter:drop-shadow(0 0 15px #00f0ff);}
+@keyframes floatLogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+#logo:hover{filter:drop-shadow(0 0 25px #00f0ff) drop-shadow(0 0 10px #00f0ff); transform:scale(1.05); transition:0.3s;}
+h1{text-align:center;font-size:2rem;margin:10px 0 20px 0;color:#00f0ff;text-shadow:0 0 10px #00f0ff;}
+#topLinks{display:flex;justify-content:center;gap:15px;margin-bottom:20px;flex-wrap:wrap;}
+.linkButton{padding:10px 20px;background:#00f0ff;color:#000;font-weight:bold;border:none;border-radius:8px;cursor:pointer;transition:0.3s;text-decoration:none;text-align:center;}
+.linkButton:hover{background:#00ffff;transform:scale(1.05);}
+#miniHub{display:flex;flex-direction:column;align-items:center;gap:30px;margin-bottom:50px;}
+.card{background:linear-gradient(135deg,#001f40,#004080);padding:20px;border-radius:15px;width:90%;max-width:500px;text-align:center;box-shadow:0 0 20px rgba(0,255,255,0.5);transition:0.3s;cursor:pointer;position:relative;overflow:hidden;}
+.card h2{margin-bottom:15px;font-size:1.4rem;color:#00f0ff;}
+button{padding:10px 20px;border:none;border-radius:8px;background:#00f0ff;color:#000;font-weight:bold;cursor:pointer;transition:0.3s;margin-top:5px;}
+button:hover{background:#00ffff;transform:scale(1.05);}
+canvas.gameCanvas{background:#000020;border:2px solid #00f0ff;border-radius:10px;display:block;margin:10px auto;max-width:100%;}
+.score{color:#00f0ff;font-weight:bold;text-align:center;margin-top:5px;}
+.particle{position:absolute;width:4px;height:4px;background:#00f0ff;border-radius:50%;opacity:0.8;animation:drift 6s infinite;}
+@keyframes drift{0%{transform:translate(0,0);}50%{transform:translate(20px,-20px);}100%{transform:translate(0,0);}}
 </style>
 </head>
 <body>
 
-<!-- Background canvas -->
 <canvas id="bgCanvas"></canvas>
 
-<!-- Logo -->
 <div id="logoContainer">
   <img id="logo" src="https://i.imgur.com/AygwFab.png" alt="PandoX Logo">
-  <h1>PandoX 🐼 – MiniApp Deluxe 4.0</h1>
+  <h1>PandoX 🐼 – Mini App 1.0 Deluxe</h1>
 </div>
 
-<!-- MiniHub Games -->
+<!-- Barra de botones -->
+<div id="topLinks">
+  <a class="linkButton" href="https://github.com/pandoxofficial12-dev/pandox-miniapp/blob/main/README.md" target="_blank">README</a>
+  <a class="linkButton" href="https://github.com/pandoxofficial12-dev/pandox-miniapp/blob/main/LICENSE" target="_blank">LICENSE</a>
+  <a class="linkButton" href="https://t.me/pandoxofficial" target="_blank">Telegram</a>
+  <a class="linkButton" href="https://x.com/pandoxofficial" target="_blank">X</a>
+  <a class="linkButton" href="https://www.pufwallet.xyz/token/0xF968341A687D70BcF84121111CfBB5eF7148AC28" target="_blank">P-U-F-F Wallet</a>
+</div>
+
+<!-- MiniHub de juegos -->
 <div id="miniHub">
-  <div class="card" onclick="startClicker()">
+  <div class="card">
+    <h2>Selecciona tu juego</h2>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <button onclick="showGame('clicker')">Clicker Game</button>
+      <button onclick="showGame('snake')">Snake Game</button>
+      <button onclick="showGame('dino')">Dino Run</button>
+    </div>
+  </div>
+
+  <!-- Clicker Game -->
+  <div class="card" id="clickerCard" style="display:none;">
     <h2>Clicker Game</h2>
-    <button>Start</button>
+    <button id="clickerStart">Start</button>
     <div id="clickerScore" class="score">Score: 0</div>
   </div>
 
-  <div class="card" onclick="startSnake()">
+  <!-- Snake Game -->
+  <div class="card" id="snakeCard" style="display:none;">
     <h2>Snake Game</h2>
-    <button>Start</button>
-    <canvas id="snakeCanvas" class="gameCanvas" width="180" height="180"></canvas>
+    <button id="snakeStart">Start</button>
+    <canvas id="snakeCanvas" class="gameCanvas" width="400" height="400"></canvas>
     <div id="snakeScore" class="score">Score: 0</div>
   </div>
 
-  <div class="card" onclick="startDino()">
+  <!-- Dino Run -->
+  <div class="card" id="dinoCard" style="display:none;">
     <h2>Dino Run</h2>
-    <button>Start</button>
-    <canvas id="dinoCanvas" class="gameCanvas" width="180" height="180"></canvas>
+    <button id="dinoStart">Start</button>
+    <canvas id="dinoCanvas" class="gameCanvas" width="400" height="200"></canvas>
     <div id="dinoScore" class="score">Score: 0</div>
   </div>
 </div>
 
 <script>
-// ------------------------------
-// Background Stars
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const stars = [];
-for(let i=0;i<150;i++){
-  stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.5, d:Math.random()*0.5});
-}
-function drawStars(){
-  ctx.fillStyle='black';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle='white';
-  for(let s of stars){
-    ctx.globalAlpha = s.d;
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fill();
-  }
-}
-function updateStars(){
-  for(let s of stars){
-    s.y += 0.2;
-    if(s.y>canvas.height){s.y=0; s.x=Math.random()*canvas.width;}
-  }
-}
-function animateStars(){drawStars(); updateStars(); requestAnimationFrame(animateStars);}
+// ---------- Fondo galaxia
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+const stars=[];
+for(let i=0;i<250;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+0.5,d:Math.random()*0.5,dx:Math.random()*0.3-0.15});}
+function drawStars(){ctx.fillStyle='#000020';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='white';for(let s of stars){ctx.globalAlpha=s.d;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();}}
+function updateStars(){for(let s of stars){s.y+=0.2;s.x+=s.dx;if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}if(s.x>canvas.width)s.x=0;if(s.x<0)s.x=canvas.width;}}
+function animateStars(){drawStars();updateStars();requestAnimationFrame(animateStars);}
 animateStars();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 
-// ------------------------------
-// Clicker Game
-let clickerScore = 0;
-function startClicker(){
+// ---------- MiniHub de juegos
+function hideAllGames(){document.getElementById('clickerCard').style.display='none';document.getElementById('snakeCard').style.display='none';document.getElementById('dinoCard').style.display='none';}
+function showGame(game){hideAllGames();document.getElementById(game+'Card').style.display='block';}
+
+// Clicker
+let clickerScore=0;
+document.getElementById('clickerStart').onclick=function(){
   clickerScore=0;
-  document.getElementById('clickerScore').innerText = 'Score: 0';
-  const button = event.currentTarget.querySelector('button');
-  button.onclick = () => {clickerScore++; document.getElementById('clickerScore').innerText='Score: '+clickerScore;};
+  document.getElementById('clickerScore').innerText='Score: 0';
+  this.onclick=function(){clickerScore++;document.getElementById('clickerScore').innerText='Score: '+clickerScore;}
 }
 
-// ------------------------------
-// Snake Game
-let snakeInterval, snakeScore=0;
-function startSnake(){
-  const canvas = document.getElementById('snakeCanvas');
-  const ctx = canvas.getContext('2d');
-  let size = 10, snake=[{x:80,y:80}], food={x:Math.floor(Math.random()*18)*10,y:Math.floor(Math.random()*18)*10}, dir={x:0,y:0};
+// Snake
+let snakeInterval,snakeScore=0;
+document.getElementById('snakeStart').onclick=function(){
+  const canvas=document.getElementById('snakeCanvas');
+  const ctx=canvas.getContext('2d');
+  let size=20,snake=[{x:200,y:200}],food={x:Math.floor(Math.random()*20)*20,y:Math.floor(Math.random()*20)*20},dir={x:0,y:0};
   snakeScore=0;
   clearInterval(snakeInterval);
-  snakeInterval = setInterval(gameSnake,100);
+  snakeInterval=setInterval(gameSnake,100);
   function gameSnake(){
-    ctx.fillStyle='#000020'; ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle='lime';
-    for(let s of snake) ctx.fillRect(s.x,s.y,size,size);
-    ctx.fillStyle='red'; ctx.fillRect(food.x,food.y,size,size);
-    let nx=snake[0].x+dir.x*size, ny=snake[0].y+dir.y*size;
-    if(nx<0||nx>=canvas.width||ny<0||ny>=canvas.height||snake.some(s=>s.x===nx&&s.y===ny)){clearInterval(snakeInterval); return;}
+    ctx.fillStyle='#000020';ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='lime';for(let s of snake)ctx.fillRect(s.x,s.y,size,size);
+    ctx.fillStyle='red';ctx.fillRect(food.x,food.y,size,size);
+    let nx=snake[0].x+dir.x*size,ny=snake[0].y+dir.y*size;
+    if(nx<0||nx>=canvas.width||ny<0||ny>=canvas.height||snake.some(s=>s.x===nx&&s.y===ny)){clearInterval(snakeInterval);return;}
     snake.unshift({x:nx,y:ny});
-    if(nx===food.x&&ny===food.y){snakeScore++; document.getElementById('snakeScore').innerText='Score: '+snakeScore; food={x:Math.floor(Math.random()*18)*10,y:Math.floor(Math.random()*18)*10};} 
-    else snake.pop();
+    if(nx===food.x&&ny===food.y){snakeScore++;document.getElementById('snakeScore').innerText='Score: '+snakeScore;food={x:Math.floor(Math.random()*20)*20,y:Math.floor(Math.random()*20)*20};}else snake.pop();
   }
   document.onkeydown=e=>{
-    if(e.key==='ArrowUp' && dir.y===0) dir={x:0,y:-1};
-    if(e.key==='ArrowDown' && dir.y===0) dir={x:0,y:1};
-    if(e.key==='ArrowLeft' && dir.x===0) dir={x:-1,y:0};
-    if(e.key==='ArrowRight' && dir.x===0) dir={x:1,y:0};
+    if(e.key==='ArrowUp'&&dir.y===0)dir={x:0,y:-1};
+    if(e.key==='ArrowDown'&&dir.y===0)dir={x:0,y:1};
+    if(e.key==='ArrowLeft'&&dir.x===0)dir={x:-1,y:0};
+    if(e.key==='ArrowRight'&&dir.x===0)dir={x:1,y:0};
   }
 }
 
-// ------------------------------
-// Dino Run Game
-let dinoInterval, dinoScore=0;
-function startDino(){
-  const canvas = document.getElementById('dinoCanvas');
-  const ctx = canvas.getContext('2d');
-  let dino={x:30,y:140,w:20,h:20}, obstacle={x:180,y:140,w:10,h:20}, vy=0, gravity=1;
+// Dino Run con sprite
+let dinoInterval,dinoScore=0;
+document.getElementById('dinoStart').onclick=function(){
+  const canvas=document.getElementById('dinoCanvas'); const ctx=canvas.getContext('2d');
+  let dinoImg=new Image(); dinoImg.src='https://i.imgur.com/QbWj9Xb.png';
+  let dino={x:30,y:160,w:40,h:40},obstacle={x:500,y:160,w:20,h:40},vy=0,gravity=1;
   dinoScore=0;
   clearInterval(dinoInterval);
   dinoInterval=setInterval(gameDino,50);
   function gameDino(){
     ctx.fillStyle='#000020'; ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle='lime'; ctx.fillRect(dino.x,dino.y,dino.w,dino.h);
+    ctx.drawImage(dinoImg,dino.x,dino.y,dino.w,dino.h);
     ctx.fillStyle='red'; ctx.fillRect(obstacle.x,obstacle.y,obstacle.w,obstacle.h);
-    // Gravity
-    vy+=gravity; dino.y+=vy;
-    if(dino.y>140){dino.y=140; vy=0;}
-    // Collision
-    if(dino.x<obstacle.x+dino.w && dino.x+dino.w>obstacle.x && dino.y<obstacle.y+dino.h && dino.y+dino.h>obstacle.y){
-      clearInterval(dinoInterval); return;
-    }
-    // Move obstacle
-    obstacle.x-=5; if(obstacle.x<0){obstacle.x=180; dinoScore++; document.getElementById('dinoScore').innerText='Score: '+dinoScore;}
+    vy+=gravity; dino.y+=vy; if(dino.y>160){dino.y=160; vy=0;}
+    if(dino.x<obstacle.x+dino.w && dino.x+dino.w>obstacle.x && dino.y<obstacle.y+dino.h && dino.y+dino.h>obstacle.y){clearInterval(dinoInterval); return;}
+    obstacle.x-=5; if(obstacle.x<0){obstacle.x=500; dinoScore++; document.getElementById('dinoScore').innerText='Score: '+dinoScore;}
   }
-  document.onkeydown=e=>{
-    if(e.key===' ' && dino.y===140) vy=-15;
-  }
+  document.onkeydown=e=>{if(e.key===' ' && dino.y===160) vy=-15;}
 }
 
-// ------------------------------
-// Logo particles interaction
-const logoContainer = document.getElementById('logoContainer');
-for(let i=0;i<20;i++){
-  let p=document.createElement('div'); p.className='particle'; p.style.left=Math.random()*200+'px'; p.style.top=Math.random()*50+'px';
-  logoContainer.appendChild(p);
-}
+// ---------- Partículas logo
+const logoContainer=document.getElementById('logoContainer');
+for(let i=0;i<25;i++){let p=document.createElement('div');p.className='particle';p.style.left=Math.random()*200+'px';p.style.top=Math.random()*50+'px';logoContainer.appendChild(p);}
 </script>
 
 </body>
