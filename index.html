@@ -5,93 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PandoX 🐼 Mini-App</title>
   <style>
+    /* Fondo premium tipo logo */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #ffe600, #ff3b3b);
-      color: #111;
       text-align: center;
+      color: #fff;
+      background: linear-gradient(135deg, #0f4d3d, #1f1f1f); /* Verde oscuro -> negro */
+      background-size: cover;
+      background-attachment: fixed;
     }
 
+    /* Contenedor principal */
     .container {
-      max-width: 600px;
+      max-width: 650px;
       margin: 40px auto;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      padding: 30px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
 
+    /* Logo animado */
     #logo {
       width: 200px;
-      animation: bounce 2s infinite;
-      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+      margin-bottom: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
 
-    @keyframes bounce {
+    @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+      50% { transform: translateY(-15px); }
     }
 
-    h1 { font-size: 2rem; margin-bottom: 15px; }
-    p { font-size: 1rem; margin-bottom: 30px; line-height: 1.5; }
+    /* Títulos y textos */
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    }
 
+    p {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    /* Botones principales */
     .button {
       display: inline-block;
-      background: #ff3b3b;
-      color: white;
-      padding: 15px 25px;
-      margin: 10px;
-      border-radius: 12px;
+      background: #00d084;
+      color: #111;
+      padding: 15px 30px;
+      margin: 12px;
+      border-radius: 15px;
       text-decoration: none;
       font-weight: bold;
       font-size: 1rem;
       transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     .button:hover {
-      background: #ffe600;
-      color: #111;
+      background: #00ff9f;
       transform: scale(1.1);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     }
 
-    /* Earn / referral simulator */
+    /* Simulador Earn / Referidos */
     .earn-box {
-      background: rgba(255,255,255,0.15);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px 0;
-    }
-
-    .earn-box button {
-      background: #00b894;
-    }
-
-    .earn-box button:hover {
-      background: #55efc4;
-      color: #111;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 25px 0;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     }
 
     .earn-box p {
       font-size: 1.1rem;
-      margin: 10px 0;
+      margin: 12px 0;
     }
 
+    .earn-box button {
+      background: #ffd700;
+      color: #111;
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .earn-box button:hover {
+      background: #ffec7f;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Responsive */
     @media (max-width: 500px) {
       #logo { width: 150px; }
-      .button { padding: 12px 20px; font-size: 0.9rem; }
-      h1 { font-size: 1.5rem; }
+      .button { padding: 12px 22px; font-size: 0.9rem; }
+      h1 { font-size: 1.7rem; }
       p { font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Logo del Panda -->
     <img id="logo" src="https://i.imgur.com/AygwFab.png" alt="PandoX Panda Logo">
+
+    <!-- Título -->
     <h1>PandoX 🐼</h1>
+
+    <!-- Texto de presentación -->
     <p>¡La primera moneda meme creada públicamente!<br>
     Únete al experimento, reclama recompensas y forma parte de una comunidad que convierte los memes en diversión y oportunidades reales. 🚀🪙</p>
 
@@ -100,7 +133,7 @@
     <a href="https://x.com/PandoXOfficial" class="button" target="_blank">Follow on X</a>
     <a href="#" class="button">Claim Reward</a>
 
-    <!-- Simulador de Earn / Referidos -->
+    <!-- Simulador Earn / Referidos -->
     <div class="earn-box">
       <p><strong>Simula tu Earn / Referidos</strong></p>
       <p>Tu balance: <span id="balance">0</span> PandoX 🐼</p>
@@ -131,4 +164,3 @@
   </script>
 </body>
 </html>
-
