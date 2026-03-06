@@ -1,200 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Pandox MiniApp 1.0 Deluxe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        header {
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-            text-align: center;
-        }
-        img.logo {
-            width: 150px;
-            margin-bottom: 10px;
-        }
-        .button {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 20px;
-            background: #555;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
-            z-index: 10;
-            position: relative;
-        }
-        .button:hover {
-            background: #ffcc00;
-            color: #000;
-        }
-        canvas#backgroundCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-        canvas.gameCanvas {
-            display: block;
-            margin: 20px auto;
-            background: transparent;
-            z-index: 5;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pandox MiniApp</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000; /* Fondo negro, puedes cambiarlo por tu fondo animado */
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    #logo {
+      width: 150px;
+      display: block;
+      margin: 10px auto;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px;
+      background: #444;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    #game-area {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      margin-top: 20px;
+      background: url('assets/img/fire.jpeg.jpeg') no-repeat center;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .coin {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('assets/img/coin.jpeg.jpeg');
+      background-size: cover;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { top: -50px; transform: rotate(0deg); }
+      100% { top: 500px; transform: rotate(360deg); }
+    }
+
+    #dino {
+      width: 80px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+  </style>
 </head>
 <body>
 
-<header>
-    <img src="https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/img/logo.png.jpeg" alt="Logo Pandox" class="logo">
-    <h1>Pandox MiniApp 1.0 Deluxe</h1>
+  <!-- Logo -->
+  <img id="logo" src="assets/img/logo.png.jpeg" alt="Logo Pandox">
 
-    <div id="minihub">
-        <a href="https://t.me/PandoXOfficialCrypto" target="_blank" class="button">Telegram</a>
-        <a href="https://x.com/PandoXOfficial" target="_blank" class="button">X</a>
-        <a href="https://www.pufwallet.xyz/token/0xF968341A687D70BcF84121111CfBB5eF7148AC28" target="_blank" class="button">PUFF Wallet</a>
-    </div>
-</header>
+  <!-- Botones de redes sociales y wallet -->
+  <div id="buttons" style="text-align:center;">
+    <a class="button" href="https://t.me/tu_telegram" target="_blank">Telegram</a>
+    <a class="button" href="https://twitter.com/tu_x" target="_blank">X</a>
+    <a class="button" href="https://fofuwallet.com" target="_blank">Fofu Wallet</a>
+  </div>
 
-<!-- Canvas de fondo animado -->
-<canvas id="backgroundCanvas"></canvas>
+  <!-- Área de juego -->
+  <div id="game-area">
+    <!-- Dino -->
+    <img id="dino" src="assets/img/dino.jpeg.jpeg" alt="Dino">
+  </div>
 
-<!-- Juegos -->
-<canvas id="dinoGame" width="600" height="400" class="gameCanvas"></canvas>
-<canvas id="clickerGame" width="600" height="400" class="gameCanvas"></canvas>
+  <!-- Sonidos -->
+  <audio id="click" src="assets/audio/click.wav.wav"></audio>
+  <audio id="coin" src="assets/audio/coin.wav.wav"></audio>
+  <audio id="hit" src="assets/audio/hit.wav.wav"></audio>
+  <audio id="jump" src="assets/audio/jump.wav.wav"></audio>
 
-<!-- Sonidos -->
-<audio id="clickSound" src="https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/audio/click.wav.wav"></audio>
-<audio id="coinSound" src="https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/audio/coin.wav.wav"></audio>
-<audio id="jumpSound" src="https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/audio/jump.wav.wav"></audio>
-<audio id="hitSound" src="https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/audio/hit.wav.wav"></audio>
+  <!-- Scripts -->
+  <script>
+    // Generar monedas cayendo
+    function createCoin() {
+      const coin = document.createElement('div');
+      coin.className = 'coin';
+      coin.style.left = Math.random() * (window.innerWidth - 40) + 'px';
+      document.getElementById('game-area').appendChild(coin);
 
-<script>
-/* -------------------- Fondo con partículas, cometas y monedas -------------------- */
-const bgCanvas = document.getElementById('backgroundCanvas');
-const bgCtx = bgCanvas.getContext('2d');
-bgCanvas.width = window.innerWidth;
-bgCanvas.height = window.innerHeight;
-
-const particles = [];
-const coins = [];
-
-function initParticles() {
-    for(let i=0;i<80;i++){
-        particles.push({
-            x: Math.random()*bgCanvas.width,
-            y: Math.random()*bgCanvas.height,
-            radius: Math.random()*3+1,
-            speed: Math.random()*1.5+0.5
-        });
+      // Quitar moneda después de 5s
+      setTimeout(() => coin.remove(), 5000);
     }
-    for(let i=0;i<15;i++){
-        coins.push({
-            x: Math.random()*bgCanvas.width,
-            y: Math.random()*bgCanvas.height,
-            width: 50,
-            height: 50,
-            speed: Math.random()*2+1,
-            img: new Image()
-        });
-        coins[i].img.src = "https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/img/coin.jpeg.jpeg";
-    }
-}
 
-function animateBackground() {
-    bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-    
-    // Partículas brillantes
-    particles.forEach(p => {
-        bgCtx.beginPath();
-        bgCtx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-        bgCtx.fillStyle = "rgba(255,215,0,0.8)";
-        bgCtx.fill();
-        p.y += p.speed;
-        if(p.y>bgCanvas.height) p.y=0;
+    // Crear moneda cada 1.5s
+    setInterval(createCoin, 1500);
+
+    // Sonidos de botones
+    const clickSound = document.getElementById('click');
+    document.querySelectorAll('.button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        clickSound.play();
+      });
     });
 
-    // Monedas cayendo
-    coins.forEach(c => {
-        bgCtx.drawImage(c.img,c.x,c.y,c.width,c.height);
-        c.y += c.speed;
-        if(c.y>bgCanvas.height) c.y=-c.height;
+    // Posible animación del dino (ejemplo básico)
+    const dino = document.getElementById('dino');
+    document.addEventListener('keydown', e => {
+      if(e.code === 'Space') {
+        const jumpSound = document.getElementById('jump');
+        jumpSound.play();
+        dino.style.bottom = '150px';
+        setTimeout(() => dino.style.bottom = '0px', 500);
+      }
     });
 
-    requestAnimationFrame(animateBackground);
-}
-
-window.addEventListener('resize',()=>{
-    bgCanvas.width = window.innerWidth;
-    bgCanvas.height = window.innerHeight;
-});
-
-initParticles();
-animateBackground();
-
-/* -------------------- Dino Game -------------------- */
-const canvasDino = document.getElementById('dinoGame');
-const ctxDino = canvasDino.getContext('2d');
-const dinoImg = new Image();
-dinoImg.src = "https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/img/dino.jpeg.jpeg";
-let dinoY = 300;
-let velocityY = 0;
-const gravity = 0.8;
-
-document.addEventListener('keydown', e => {
-    if(e.code === 'Space') {
-        velocityY = -12;
-        document.getElementById('jumpSound').play();
-    }
-});
-
-function dinoLoop() {
-    ctxDino.clearRect(0, 0, canvasDino.width, canvasDino.height);
-    velocityY += gravity;
-    dinoY += velocityY;
-    if(dinoY>300) dinoY=300;
-    ctxDino.drawImage(dinoImg,50,dinoY,50,50);
-    requestAnimationFrame(dinoLoop);
-}
-dinoLoop();
-
-/* -------------------- Clicker Game -------------------- */
-const canvasClick = document.getElementById('clickerGame');
-const ctxClick = canvasClick.getContext('2d');
-const coinImg = new Image();
-coinImg.src = "https://raw.githubusercontent.com/pandoxofficial12-dev/pandox-miniapp/main/assets/img/coin.jpeg.jpeg";
-let clickCoins = [{x:100,y:100},{x:300,y:200},{x:500,y:150}];
-
-canvasClick.addEventListener('click', e => {
-    const rect = canvasClick.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const clickY = e.clientY - rect.top;
-    clickCoins.forEach((c,i)=>{
-        if(clickX>=c.x && clickX<=c.x+50 && clickY>=c.y && clickY<=c.y+50){
-            document.getElementById('coinSound').play();
-            clickCoins.splice(i,1);
-        }
-    });
-});
-
-function clickerLoop(){
-    ctxClick.clearRect(0,0,canvasClick.width,canvasClick.height);
-    clickCoins.forEach(c => ctxClick.drawImage(coinImg,c.x,c.y,50,50));
-    requestAnimationFrame(clickerLoop);
-}
-clickerLoop();
-</script>
-
+  </script>
 </body>
 </html>
